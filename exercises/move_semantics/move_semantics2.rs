@@ -16,7 +16,7 @@ fn main() {
     println!("{} has length {}, with contents: `{:?}`", "vec0", vec0.len(), vec0);
 
     vec1.push(88);
-
+    println!("{} has length {}, with contents `{:?}`", "vec1", vec0.len(), vec0);
     println!("{} has length {}, with contents `{:?}`", "vec1", vec1.len(), vec1);
 }
 
