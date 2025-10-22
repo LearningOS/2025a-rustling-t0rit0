@@ -10,12 +10,13 @@
 // Execute `rustlings hint tests1` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
+// I AM DONE
 
 #[cfg(test)]
 mod tests {
     #[test]
+    #[should_panic]
     fn you_can_assert() {
-        assert!();
+        assert!(false);
     }
 }

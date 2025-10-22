@@ -15,11 +15,11 @@
 | hashmaps               | §8.3                | Done |
 | options                | §10.1               | Done |
 | error_handling         | §9                  | Done |
-| generics               | §10                 |
-| traits                 | §10.2               |
-| tests                  | §11.1               |
-| lifetimes              | §10.3               |
-| iterators              | §13.2-4             |
+| generics               | §10                 | Done |
+| traits                 | §10.2               | Done |
+| tests                  | §11.1               | Done |
+| lifetimes              | §10.3               | Done |
+| iterators              | §13.2-4             | Done |
 | threads                | §16.1-3             |
 | smart_pointers         | §15, §16.3          |
 | macros                 | §19.6               |
