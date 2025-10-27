@@ -3,7 +3,7 @@
 	This question requires you to use a stack to achieve a bracket match
 */
 
-// I AM NOT DONE
+// I AM DONE
 #[derive(Debug)]
 struct Stack<T> {
 	size: usize,
@@ -32,7 +32,13 @@ impl<T> Stack<T> {
 	}
 	fn pop(&mut self) -> Option<T> {
 		// TODO
-		None
+		match self.data.pop(){
+			None => None,
+			Some(i) => {
+				self.size -= 1;
+				return Some(i);
+			}
+		}
 	}
 	fn peek(&self) -> Option<&T> {
 		if 0 == self.size {
@@ -101,7 +107,34 @@ impl<'a, T> Iterator for IterMut<'a, T> {
 
 fn bracket_match(bracket: &str) -> bool
 {
-	//TODO
+	let mut bucket = Stack::new();
+	for char in bracket.chars(){
+		if char == 'c'{
+			print!("The bricket is {:#?}", bucket);
+		}
+		if (char == '(') || (char == '{') || (char == '[')  {
+			bucket.push(char);
+		} else if char == ')' {
+			match bucket.peek(){
+				Some(x) if *x == '(' => {_ = bucket.pop();},
+				_ => {return false;},
+			}
+		} else if char == ']' {
+			match bucket.peek(){
+				Some(x) if *x == '[' => {_ = bucket.pop();},
+				_ => {return false;},
+			}
+		} else if char == '}' {
+			match bucket.peek(){
+				Some(x) if *x == '{' => {_ = bucket.pop();},
+				_ => {return false;},
+			}
+		}
+	}
+
+	if !bucket.is_empty(){
+		return false;
+	}
 	true
 }
 
