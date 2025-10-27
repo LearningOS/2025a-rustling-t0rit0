@@ -3,7 +3,7 @@
 	This problem requires you to implement a basic interface for a binary tree
 */
 
-//I AM NOT DONE
+//I AM DONE
 use std::cmp::Ordering;
 use std::fmt::Debug;
 
@@ -68,7 +68,7 @@ where
                         node = node.left.as_mut().unwrap(); 
                     },
                 }
-            } else if value < node.value{
+            } else if value > node.value{
                 match node.right {
                     None => {
                         node.right = Some(Box::new(TreeNode::new(value)));
@@ -110,7 +110,6 @@ where
                     },
                     Some(_) => {
                         node = node.right.as_ref().unwrap(); 
-                        
                     },
                 }
             } else {
