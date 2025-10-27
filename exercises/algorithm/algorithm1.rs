@@ -2,7 +2,7 @@
 	single linked list merge
 	This problem requires you to merge two ordered singly linked lists into one ordered singly linked list
 */
-// I AM NOT DONE
+// I AM DONE
 
 use std::fmt::{self, Display, Formatter};
 use std::ptr::NonNull;
@@ -69,14 +69,57 @@ impl<T> LinkedList<T> {
             },
         }
     }
-	pub fn merge(list_a:LinkedList<T>,list_b:LinkedList<T>) -> Self
+	pub fn merge(list_a: LinkedList<T>, list_b: LinkedList<T>) -> Self 
+	where T: Ord
 	{
-		//TODO
-		Self {
-            length: 0,
-            start: None,
-            end: None,
+        // Handle edge cases where one or both lists are empty
+        if list_a.length == 0 { return list_b; }
+        if list_b.length == 0 { return list_a; }
+
+        let mut merged_list = LinkedList::new();
+
+        let mut a_node = list_a.start;
+        let mut b_node = list_b.start;
+        
+        let mut tail_ptr: NonNull<Node<T>>;
+
+        let a_val = unsafe { &a_node.unwrap().as_ref().val };
+        let b_val = unsafe { &b_node.unwrap().as_ref().val };
+        if a_val <= b_val {
+            merged_list.start = a_node;
+            tail_ptr = a_node.unwrap();
+            a_node = unsafe { a_node.unwrap().as_ref().next };
+        } else {
+            merged_list.start = b_node;
+            tail_ptr = b_node.unwrap();
+            b_node = unsafe { b_node.unwrap().as_ref().next };
         }
+        while a_node.is_some() && b_node.is_some() {
+            let a_val = unsafe { &a_node.unwrap().as_ref().val };
+            let b_val = unsafe { &b_node.unwrap().as_ref().val };
+
+            if a_val <= b_val {
+                unsafe { (*tail_ptr.as_ptr()).next = a_node; }
+                tail_ptr = a_node.unwrap();
+                a_node = unsafe { tail_ptr.as_ref().next };
+            } else {
+                unsafe { (*tail_ptr.as_ptr()).next = b_node; }
+                tail_ptr = b_node.unwrap();
+                b_node = unsafe { tail_ptr.as_ref().next };
+            }
+        }
+
+        let remaining_node = if a_node.is_some() { a_node } else { b_node };
+        unsafe { (*tail_ptr.as_ptr()).next = remaining_node; }
+
+        if a_node.is_some() {
+            merged_list.end = list_a.end;
+        } else {
+            merged_list.end = list_b.end;
+        }
+
+        merged_list.length = list_a.length + list_b.length;
+        merged_list
 	}
 }
 

@@ -51,12 +51,72 @@ where
     // Insert a value into the BST
     fn insert(&mut self, value: T) {
         //TODO
+        if let None = self.root{
+            self.root = Some(Box::new(TreeNode::new(value)));
+            return ;
+        }
+
+        let mut node = self.root.as_mut().unwrap(); 
+        loop {
+            if value < node.value {
+                match node.left {
+                    None => {
+                        node.left = Some(Box::new(TreeNode::new(value)));
+                        break;
+                    },
+                    Some(_) => {
+                        node = node.left.as_mut().unwrap(); 
+                    },
+                }
+            } else if value < node.value{
+                match node.right {
+                    None => {
+                        node.right = Some(Box::new(TreeNode::new(value)));
+                        break;
+                    },
+                    Some(_) => {
+                        node = node.right.as_mut().unwrap(); 
+                        
+                    },
+                }
+            } else {
+                break;
+            }
+        }
     }
 
     // Search for a value in the BST
     fn search(&self, value: T) -> bool {
         //TODO
-        true
+        if let None = self.root{
+            return false;
+        }
+
+        let mut node = self.root.as_ref().unwrap(); 
+        loop {
+            if value < node.value {
+                match node.left {
+                    None => {
+                        return false;
+                    },
+                    Some(_) => {
+                        node = node.left.as_ref().unwrap(); 
+                    },
+                }
+            } else if value > node.value{
+                match node.right {
+                    None => {
+                        return false;
+                    },
+                    Some(_) => {
+                        node = node.right.as_ref().unwrap(); 
+                        
+                    },
+                }
+            } else {
+                return true;
+            }
+        }
     }
 }
 
